@@ -1,0 +1,81 @@
+﻿
+@{
+    ViewBag.Title = "CreateOrder";
+}
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Покупка</title>
+</head>
+<body>
+    <div>
+        <h3>Форма оформления покупки</h3>
+        @if (ViewBag.Basket != null)
+        {
+
+            <div>
+                <h3>Список лекарств в корзине</h3>
+                <table>
+                    <tr>
+                        <td><p>Id</p></td>
+                        <td><p>Название</p></td>
+                        <td><p>Латинское название</p></td>
+                        <td><p>Цена</p></td>
+                        <td><p>Описание</p></td>
+                        <td><p>Count</p></td>
+                    </tr>
+
+                    @foreach (var b in ViewBag.Basket.Items)
+                    {
+                        <tr>
+                            <td><p>@b.Medicament.Id</p></td>
+                            <td><p>@b.Medicament.Name</p></td>
+                            <td><p>@b.Medicament.LatinName</p></td>
+                            <td><p>@b.Medicament.Price</p></td>
+                            <td><p>@b.Medicament.Description</p></td>
+                            <td><p>@b.Count</p></td>
+                        </tr>
+                    }
+                </table>
+            </div>
+        
+        <form method="post" action="">
+            
+            <input type="hidden" value="@ViewBag.Basket.Items" name="Items" />
+            <table>
+                <tr>
+                    <td><p>Введите свое имя </p></td>
+                    <td><input type="text" name="BuyersName" /> </td>
+                </tr>
+                <tr>
+                    <td><p>Введите адрес :</p></td>
+                    <td>
+                        <input type="text" name="ShippingAddress" />
+                    </td>
+                </tr>
+                <tr>
+                    <td><p>Введите email :</p></td>
+                    <td>
+                        <input type="text" name="Email" />
+                    </td>
+                </tr>
+                <tr>
+                    <td><p>Введите номер телефона :</p></td>
+                    <td>
+                        <input type="text" name="PhoneNamber" />
+                    </td>
+                </tr>
+                <tr>
+                    <td><p>Сумма :</p></td>
+                    <td>
+                        <input type="number" readonly="readonly" value="@ViewBag.AmountPrice" name="AmountPrice" />
+                    </td>
+                </tr>
+                <tr><td><input type="submit" value="Отправить" /> </td><td></td></tr>
+            </table>
+        </form>
+        }
+    </div>
+</body>
+</html>

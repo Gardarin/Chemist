@@ -140,6 +140,7 @@
       <DependentUpon>201605290021474_AddItems.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\AutenteficationAdmin.cs" />
     <Compile Include="Models\Basket.cs" />
     <Compile Include="Models\ChemistContext.cs" />
     <Compile Include="Models\DbGenerate.cs" />
@@ -184,6 +185,9 @@
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
+    <Content Include="Views\Home\CreateOrder.cshtml" />
+    <Content Include="Views\Home\AdminPage.cshtml" />
+    <Content Include="Views\Home\Orders.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

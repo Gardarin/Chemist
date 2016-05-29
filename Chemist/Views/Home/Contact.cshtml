@@ -10,6 +10,9 @@
     <title>Корзина</title>
 </head>
 <body>
+@if (ViewBag.Basket!= null)
+{ 
+    
     <div>
         <h3>Список лекарств в корзине</h3>
         <table>
@@ -21,6 +24,7 @@
                 <td><p>Описание</p></td>
                 <td><p>Count</p></td>
             </tr>
+                
             @foreach (var b in ViewBag.Basket.Items)
             {
                 <tr>
@@ -34,6 +38,8 @@
             }
         </table>
     </div>
+}
     <div><a href="/Home/Index">Назад</a></div>
+    <div><a href="/Home/CreateOrder">Сформировать заказ</a></div>
 </body>
 </html>
