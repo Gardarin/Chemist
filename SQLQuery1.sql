@@ -1,0 +1,1 @@
+﻿select * from Baskets,Medicaments where Medicaments.Basket_Id = Baskets.Id;
