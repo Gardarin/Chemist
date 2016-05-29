@@ -1,0 +1,40 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Аптека</title>
+</head>
+<body>
+    <div>
+        <div><h3>@ViewBag.Report</h3></div>
+        <h3>Список лекарств</h3>
+        <table>
+            <tr>
+                <td><p>Id</p></td>
+                <td><p>Название</p></td>
+                <td><p>Латинское название</p></td>
+                <td><p>Цена</p></td>
+                <td><p>Описание</p></td>
+                <td></td>
+            </tr>
+            @foreach (var b in ViewBag.medicaments)
+            {
+                <tr>
+                    <td><p>@b.Id</p></td>
+                    <td><p>@b.Name</p></td>
+                    <td><p>@b.LatinName</p></td>
+                    <td><p>@b.Price</p></td>
+                    <td><p>@b.Description</p></td>
+                    <td><p><a href="/Home/Index/@b.Id">Добавить</a></p></td>
+                </tr>
+            }
+        </table>
+    </div>
+    <div><a href="/Home/Contact">Корзина</a></div>
+</body>
+</html>

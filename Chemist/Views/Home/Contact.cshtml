@@ -1,0 +1,39 @@
+﻿@{
+    ViewBag.Title = "Contact";
+}
+<h2>@ViewBag.Title.</h2>
+<h3>@ViewBag.Message</h3>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Корзина</title>
+</head>
+<body>
+    <div>
+        <h3>Список лекарств в корзине</h3>
+        <table>
+            <tr>
+                <td><p>Id</p></td>
+                <td><p>Название</p></td>
+                <td><p>Латинское название</p></td>
+                <td><p>Цена</p></td>
+                <td><p>Описание</p></td>
+                <td><p>Count</p></td>
+            </tr>
+            @foreach (var b in ViewBag.Basket.Items)
+            {
+                <tr>
+                    <td><p>@b.Medicament.Id</p></td>
+                    <td><p>@b.Medicament.Name</p></td>
+                    <td><p>@b.Medicament.LatinName</p></td>
+                    <td><p>@b.Medicament.Price</p></td>
+                    <td><p>@b.Medicament.Description</p></td>
+                    <td><p>@b.Count</p></td>
+                </tr>
+            }
+        </table>
+    </div>
+    <div><a href="/Home/Index">Назад</a></div>
+</body>
+</html>
