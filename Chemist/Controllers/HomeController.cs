@@ -188,11 +188,11 @@ namespace Chemist.Controllers
             {
                 cookie = new HttpCookie("AdminId", "true");
                 Response.SetCookie(cookie);
-                Response.RedirectToRoute("Orders");
-                return View();
+                
+                return RedirectToAction("Orders");
             }
 
-            return RedirectToRoute(new Route("Home/Orders", new MvcRouteHandler()));
+            return RedirectToAction("Orders"); 
         }
 
         public ActionResult Orders()
@@ -200,13 +200,11 @@ namespace Chemist.Controllers
             HttpCookie cookie = Request.Cookies.Get("AdminId");
             if (cookie == null)
             {
-                Response.RedirectToRoute("Index");
-                return View();
+                return RedirectToAction("Index");
             }
             if (cookie.Value != "true")
             {
-                Response.RedirectToRoute("Index");
-                return View();
+                return RedirectToAction("Index");
             }
 
             ViewBag.Orders = _chemistContext.Orders.Include("Items").ToList();
