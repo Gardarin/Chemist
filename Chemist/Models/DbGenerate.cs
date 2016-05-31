@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Data.Entity;
+using System.Drawing;
 
 namespace Chemist.Models
 {
@@ -11,30 +12,36 @@ namespace Chemist.Models
         public static void AddItems(ChemistContext chemistContext)
         {
             Medicament med = new Medicament();
+            Bitmap bitmap = new Bitmap("1.bmp");
             med.Name = "QQQ1000";
             med.LatinName = "qqqkilo";
             med.ByPrescription = true;
             med.Code = "1232345";
             med.Description = "la la la";
             med.Price = 1000;
+            med.SetPicture(bitmap);
             chemistContext.Medicaments.Add(med);
 
             med = new Medicament();
+            bitmap = new Bitmap("2.bmp");
             med.Name = "Ciclofosfamin";
             med.LatinName = "lat ciclo";
             med.ByPrescription = false;
             med.Code = "666";
             med.Description = "description 3";
             med.Price = 1500;
+            med.SetPicture(bitmap);
             chemistContext.Medicaments.Add(med);
 
             med = new Medicament();
+            bitmap = new Bitmap("3.bmp");
             med.Name = "Etanol";
             med.LatinName = "etan";
             med.ByPrescription = true;
             med.Code = "777";
             med.Description = "spirt";
             med.Price = 2000;
+            med.SetPicture(bitmap);
             chemistContext.Medicaments.Add(med);
 
             chemistContext.SaveChanges();
@@ -43,30 +50,39 @@ namespace Chemist.Models
         protected override void Seed(ChemistContext chemistContext)
         {
             Medicament med = new Medicament();
+            Bitmap bitmap = new Bitmap(AppDomain.CurrentDomain.BaseDirectory + "\\App_Data\\1.bmp");
             med.Name = "QQQ1000";
             med.LatinName = "qqqkilo";
             med.ByPrescription = true;
             med.Code = "1232345";
             med.Description = "la la la";
             med.Price = 1000;
+            med.Count = 100;
+            med.SetPicture(bitmap);
             chemistContext.Medicaments.Add(med);
 
             med = new Medicament();
+            bitmap = new Bitmap(AppDomain.CurrentDomain.BaseDirectory + "\\App_Data\\2.bmp");
             med.Name = "Ciclofosfamin";
             med.LatinName = "lat ciclo";
             med.ByPrescription = false;
             med.Code = "666";
             med.Description = "description 3";
             med.Price = 1500;
+            med.Count = 10;
+            med.SetPicture(bitmap);
             chemistContext.Medicaments.Add(med);
 
             med = new Medicament();
+            bitmap = new Bitmap(AppDomain.CurrentDomain.BaseDirectory + "\\App_Data\\3.bmp");
             med.Name = "Etanol";
             med.LatinName = "etan";
             med.ByPrescription = true;
             med.Code = "777";
             med.Description = "spirt";
             med.Price = 2000;
+            med.Count = 35;
+            med.SetPicture(bitmap);
             chemistContext.Medicaments.Add(med);
 
             User user = new Models.User();

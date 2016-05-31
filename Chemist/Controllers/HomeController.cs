@@ -15,7 +15,6 @@ namespace Chemist.Controllers
 
         public ActionResult Index()
         {
-            //Chemist.Models.DbGenerate.AddItems(_chemistContext); 
             IQueryable<Medicament> medicaments = _chemistContext.Medicaments;
             ViewBag.medicaments = medicaments;
             ViewBag.Report = "";
@@ -25,16 +24,6 @@ namespace Chemist.Controllers
         [HttpGet]
         public ActionResult Index(string id)
         {
-            //Chemist.Models.DbGenerate.AddItems(_chemistContext); 
-
-            //User user = new Models.User();
-            //user.IsAdmin = true;
-            //user.Mail = "absd@mail.ru";
-            //user.Password = "123456";
-            //user.Name = "Igor";
-            //_chemistContext.Users.Add(user);
-            //_chemistContext.SaveChanges();
-
             IQueryable<Medicament> medicaments = _chemistContext.Medicaments;
             ViewBag.medicaments = medicaments;
             Basket basket;
@@ -53,7 +42,7 @@ namespace Chemist.Controllers
 
             string sesId = Request.Cookies.Get("BasketId").Value;
 
-            basket = _chemistContext.Baskets.FirstOrDefault(x => x.SessionId == sesId);
+            basket = _chemistContext.Baskets.Include("Items.Medicament").FirstOrDefault(x => x.SessionId == sesId);
             
             if(basket == null)
             {
@@ -63,9 +52,21 @@ namespace Chemist.Controllers
                 _chemistContext.Baskets.Add(basket);
             }
 
-            Item item = new Item();
-            item.Count = 1;
-            item.Medicament = _chemistContext.Medicaments.Find(Id);
+            basket.Items.FirstOrDefault(x => x.Medicament.Id == Id);
+
+
+            Item item = basket.Items.FirstOrDefault(x => x.Medicament.Id == Id);
+            if (item == null)
+            {
+                item = new Item();
+                item.Count = 1;
+                item.Medicament = _chemistContext.Medicaments.Find(Id);
+            }
+            else
+            {
+                item.Count++;
+            }
+            
             if (item.Medicament != null)
             {
                 basket.Items.Add(item);
@@ -78,7 +79,6 @@ namespace Chemist.Controllers
         [HttpPost]
         public string Buy(Item item)
         {
-
             var basket = _chemistContext.Baskets.First(x => x.SessionId == Request.Cookies.Get("BasketId").Value);
             if (basket == null)
             {
@@ -95,13 +95,11 @@ namespace Chemist.Controllers
         public ActionResult About()
         {
             ViewBag.Message = "Your application description page.";
-
-
-
             return View();
         }
 
-        public ActionResult Contact()
+        [HttpGet]
+        public ActionResult Contact(string id)
         {
             if (_chemistContext.Baskets.Count() == 0)
             {
@@ -114,13 +112,32 @@ namespace Chemist.Controllers
             }
             string sesId = Request.Cookies.Get("BasketId").Value;
 
+
+
             Basket basket = _chemistContext.Baskets.Include("Items.Medicament").FirstOrDefault(x => x.SessionId == sesId);
             if (basket == null)
             {
                 return View();
             }
+
             ViewBag.Message = "Your contact page.";
             ViewBag.Basket = basket;
+
+            int Id = 0;
+            if (int.TryParse(id, out Id))
+            {
+                Item item = basket.Items.FirstOrDefault(x => x.Id == Id);
+                if (item.Count > 1)
+                {
+                    item.Count--;
+                }
+                else
+                {
+                    basket.Items.Remove(basket.Items.FirstOrDefault(x => x.Id == Id));
+                }
+                _chemistContext.SaveChanges();
+            }
+
             return View();
         }
 
@@ -155,23 +172,24 @@ namespace Chemist.Controllers
             }
 
             string sesId = Request.Cookies.Get("BasketId").Value;
-
-            //order.Items = _chemistContext.Baskets.FirstOrDefault(x => x.SessionId == sesId).Items;
-
-            Basket basket = basket = _chemistContext.Baskets.FirstOrDefault(x => x.SessionId == sesId);
+            Basket basket = _chemistContext.Baskets.Include("Items").FirstOrDefault(x => x.SessionId == sesId);
 
             basket.SessionId = Request.Cookies.Get("BasketId").Value;
-            basket.Items = new List<Item>();
-
+            order.Items=new List<Item>();
+            foreach(var i in basket.Items)
+            {
+                order.Items.Add(i);
+            }
+            basket.Items.Clear();
+            order.Status = "isnt comit";
             _chemistContext.Orders.Add(order);
             _chemistContext.SaveChanges();
-            return Index();
+            return RedirectToAction("Index"); ;
         }
 
         [HttpGet]
         public ActionResult AdminPage()
         {
-
             return View();
         }
 
@@ -195,6 +213,7 @@ namespace Chemist.Controllers
             return RedirectToAction("Orders"); 
         }
 
+        [HttpGet]
         public ActionResult Orders()
         {
             HttpCookie cookie = Request.Cookies.Get("AdminId");
@@ -207,10 +226,59 @@ namespace Chemist.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.Orders = _chemistContext.Orders.Include("Items").ToList();
-            List<Order> or = _chemistContext.Orders.Include("Items").ToList();
+            ViewBag.Orders = _chemistContext.Orders.Include("Items.Medicament").ToList();
 
             return View();
+        }
+        
+        public ActionResult OrdersDel(int id)
+        {
+            HttpCookie cookie = Request.Cookies.Get("AdminId");
+            if (cookie == null)
+            {
+                return RedirectToAction("Index");
+            }
+            if (cookie.Value != "true")
+            {
+                return RedirectToAction("Index");
+            }
+
+            var orders = _chemistContext.Orders.Include("Items").FirstOrDefault(x => x.Id == id);
+            if (orders != null)
+            {
+                _chemistContext.Orders.Remove(orders);
+                _chemistContext.SaveChanges();
+            }
+
+            return RedirectToAction("Orders");
+        }
+
+        public ActionResult OrdersComit(int id)
+        {
+            HttpCookie cookie = Request.Cookies.Get("AdminId");
+            if (cookie == null)
+            {
+                return RedirectToAction("Index");
+            }
+            if (cookie.Value != "true")
+            {
+                return RedirectToAction("Index");
+            }
+
+            var order = _chemistContext.Orders.Include("Items.Medicament").FirstOrDefault(x => x.Id == id);
+            if (order != null)
+            {
+                order.Status = "Comit";
+
+                foreach (var i in order.Items)
+                {
+                    i.Medicament.Count -= i.Count;
+                }
+
+                _chemistContext.SaveChanges();
+            }
+
+            return RedirectToAction("Orders");
         }
     }
 }

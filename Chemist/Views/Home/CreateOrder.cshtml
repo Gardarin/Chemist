@@ -15,66 +15,73 @@
         {
 
             <div>
-                <h3>Список лекарств в корзине</h3>
-                <table>
-                    <tr>
-                        <td><p>Id</p></td>
-                        <td><p>Название</p></td>
-                        <td><p>Латинское название</p></td>
-                        <td><p>Цена</p></td>
-                        <td><p>Описание</p></td>
-                        <td><p>Count</p></td>
-                    </tr>
-
+                <h4>Список лекарств в корзине</h4>
+                <table class="table table-striped table-hover ">
+                    <thead>
+                        <tr>
+                            <td><p>Id</p></td>
+                            <td><p>Изображение</p></td>
+                            <td><p>Название</p></td>
+                            <td><p>Латинское название</p></td>
+                            <td><p>Цена</p></td>
+                            <td><p>Описание</p></td>
+                            <td><p>Про рецепту</p></td>
+                            <td><p>Количество на складе</p></td>
+                            <td><p>Количество в заказе</p></td>
+                        </tr>
+                    </thead>
                     @foreach (var b in ViewBag.Basket.Items)
                     {
-                        <tr>
+                        <tr class="info">
                             <td><p>@b.Medicament.Id</p></td>
+                            <td><p><img src="@String.Format("data:image/bmp;base64,{0}", Convert.ToBase64String(b.Medicament.Picture))" width="100" height="100" /></p></td>
                             <td><p>@b.Medicament.Name</p></td>
                             <td><p>@b.Medicament.LatinName</p></td>
                             <td><p>@b.Medicament.Price</p></td>
                             <td><p>@b.Medicament.Description</p></td>
+                            <td><p>@b.Medicament.ByPrescription</p></td>
+                            <td><p>@b.Medicament.Count</p></td>
                             <td><p>@b.Count</p></td>
                         </tr>
                     }
                 </table>
             </div>
-        
-        <form method="post" action="">
-            
-            <input type="hidden" value="@ViewBag.Basket.Items" name="Items" />
-            <table>
-                <tr>
-                    <td><p>Введите свое имя </p></td>
-                    <td><input type="text" name="BuyersName" /> </td>
-                </tr>
-                <tr>
-                    <td><p>Введите адрес :</p></td>
-                    <td>
-                        <input type="text" name="ShippingAddress" />
-                    </td>
-                </tr>
-                <tr>
-                    <td><p>Введите email :</p></td>
-                    <td>
-                        <input type="text" name="Email" />
-                    </td>
-                </tr>
-                <tr>
-                    <td><p>Введите номер телефона :</p></td>
-                    <td>
-                        <input type="text" name="PhoneNamber" />
-                    </td>
-                </tr>
-                <tr>
-                    <td><p>Сумма :</p></td>
-                    <td>
-                        <input type="number" readonly="readonly" value="@ViewBag.AmountPrice" name="AmountPrice" />
-                    </td>
-                </tr>
-                <tr><td><input type="submit" value="Отправить" /> </td><td></td></tr>
-            </table>
-        </form>
+
+    <form class="form-horizontal" method="post" action="">
+
+        <input type="hidden" value="@ViewBag.Basket.Items" name="Items" />
+        <table class="table table-striped table-hover ">
+            <tr>
+                <td><p>Введите свое имя </p></td>
+                <td><input type="text" name="BuyersName" /> </td>
+            </tr>
+            <tr>
+                <td><p>Введите адрес :</p></td>
+                <td>
+                    <input type="text" name="ShippingAddress" />
+                </td>
+            </tr>
+            <tr>
+                <td><p>Введите email :</p></td>
+                <td>
+                    <input type="text" name="Email" />
+                </td>
+            </tr>
+            <tr>
+                <td><p>Введите номер телефона :</p></td>
+                <td>
+                    <input type="text" name="PhoneNamber" />
+                </td>
+            </tr>
+            <tr>
+                <td><p>Сумма :</p></td>
+                <td>
+                    <input type="number" readonly="readonly" value="@ViewBag.AmountPrice" name="AmountPrice" />
+                </td>
+            </tr>
+            <tr><td><input type="submit" value="Отправить" /> </td><td></td></tr>
+        </table>
+    </form>
         }
     </div>
 </body>

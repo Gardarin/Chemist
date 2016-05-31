@@ -12,23 +12,31 @@
 <body>
     <div>
         <h3>Список лекарств</h3>
-        <table>
-            <tr>
-                <td><p>Id</p></td>
-                <td><p>Название</p></td>
-                <td><p>Латинское название</p></td>
-                <td><p>Цена</p></td>
-                <td><p>Описание</p></td>
-                <td></td>
-            </tr>
+        <table class="table table-striped table-hover ">
+            <thead>
+                <tr>
+                    <td><p>Id</p></td>
+                    <td><p>Изображение</p></td>
+                    <td><p>Название</p></td>
+                    <td><p>Латинское название</p></td>
+                    <td><p>Цена</p></td>
+                    <td><p>Описание</p></td>
+                    <td><p>Про рецепту</p></td>
+                    <td><p>Количество</p></td>
+                    <td></td>
+                </tr>
+            </thead>
             @foreach (var b in ViewBag.medicaments)
             {
-                <tr>
+                <tr class="info">
                     <td><p>@b.Id</p></td>
+                    <td><p><img src="@String.Format("data:image/bmp;base64,{0}", Convert.ToBase64String(b.Picture))" width="100" height="100" /></p></td>
                     <td><p>@b.Name</p></td>
                     <td><p>@b.LatinName</p></td>
                     <td><p>@b.Price</p></td>
                     <td><p>@b.Description</p></td>
+                    <td><p>@b.ByPrescription</p></td>
+                    <td><p>@b.Count</p></td>
                     <td><p><a href="/Home/Index/@b.Id">Добавить</a></p></td>
                 </tr>
             }

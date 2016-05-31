@@ -13,6 +13,7 @@ namespace Chemist.Models
         public string Email { get; set; }
         public string PhoneNamber { get; set; }
         public int AmountPrice { get; set; }
+        public string Status { get; set; }
         public virtual ICollection<Item> Items { get; set; }
     }
 }

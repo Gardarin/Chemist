@@ -1,0 +1,60 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Chemist.Models.AutenteficationAdmin">
+    <Position X="0.5" Y="0.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAA=</HashCode>
+      <FileName>Models\AutenteficationAdmin.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Chemist.Models.Basket">
+    <Position X="4.75" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAACAAAAAAAAAAIAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\Basket.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Chemist.Models.ChemistContext">
+    <Position X="2.5" Y="8" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAEAACAAAAAAAAAAAAAAAAAAABAAAAAAAgAAAAAAAAA=</HashCode>
+      <FileName>Models\ChemistContext.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Chemist.Models.ChemistDbInitializer">
+    <Position X="0.5" Y="8" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAEAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\DbGenerate.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Chemist.Models.Item">
+    <Position X="2.5" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAAAABAAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\Item.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Chemist.Models.Medicament">
+    <Position X="0.5" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACgAAAAQAgAAAAAAAgAAQAAAAAAAAAEAAAAAAAAEA=</HashCode>
+      <FileName>Models\Medicament.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Chemist.Models.Order">
+    <Position X="4.75" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIGAAAAQCAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAE=</HashCode>
+      <FileName>Models\Order.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Chemist.Models.User">
+    <Position X="0.5" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAAAEAAQAQADAAAAAACAAAAAQAAAAA=</HashCode>
+      <FileName>Models\User.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

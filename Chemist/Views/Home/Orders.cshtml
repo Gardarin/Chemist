@@ -8,49 +8,69 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
-    <title>Аптека</title>
+    <title>Список заказов</title>
 </head>
 <body>
     <div>
         @foreach (var o in ViewBag.Orders)
         {
-            <h3>Список лекарств</h3>
-            <table>
-                <tr>
-                    <td><p>Имя покупателя</p></td>
-                    <td><p>Адресс доставки</p></td>
-                    <td><p>Email</p></td>
-                    <td><p>Телефон</p></td>
-                    <td><p>Сумма</p></td>
-                    <td><p>Список лекарств</p></td>
+            <h3>Заказ номер @o.Id</h3>
+    <table class="table table-striped table-hover ">
+        <thead>
+            <tr>
+                <td><p>Имя покупателя</p></td>
+                <td><p>Адресс доставки</p></td>
+                <td><p>Email</p></td>
+                <td><p>Телефон</p></td>
+                <td><p>Сумма</p></td>
+                <td><p>Статус заказа</p></td>
+            </tr>
+        </thead>
+            <tr class="info">
+                <td><p>@o.BuyersName</p></td>
+                <td><p>@o.ShippingAddress</p></td>
+                <td><p>@o.Email </p></td>
+                <td><p>@o.PhoneNamber</p></td>
+                <td><p>@o.AmountPrice</p></td>
+                <td><p>@o.Status</p></td>
+                <td><p><a href="/Home/OrdersDel/@o.Id">Удалить</a></p> <p><a href="/Home/OrdersComit/@o.Id">Принять</a></p></td>
+                <td><p>
+        
+            <tr>
+                <td><p>Список лекарств</p></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+        
+            <tr>
+                <td><p>Изображение</p></td>
+                <td><p>Название</p></td>
+                <td><p>Латинское название</p></td>
+                <td><p>Цена</p></td>
+                <td><p>Описание</p></td>
+                <td><p>Про рецепту</p></td>
+                <td><p>Количество на складе</p></td>
+                <td><p>Количество в заказе</p></td>
+            </tr>
+        
+            @foreach (var b in o.Items)
+            {
+                <tr class="info">
+                    <td><p><img src="@String.Format("data:image/bmp;base64,{0}", Convert.ToBase64String(b.Medicament.Picture))" width="100" height="100" /></p></td>
+                    <td><p>@b.Medicament.Name</p></td>
+                    <td><p>@b.Medicament.LatinName</p></td>
+                    <td><p>@b.Medicament.Price</p></td>
+                    <td><p>@b.Medicament.Description</p></td>
+                    <td><p>@b.Medicament.ByPrescription</p></td>
+                    <td><p>@b.Medicament.Count</p></td>
+                    <td><p>@b.Count</p></td>
                 </tr>
-                
-                    <tr>
-                        <td><p>@o.BuyersName</p></td>
-                        <td><p>@o.ShippingAddress</p></td>
-                        <td><p>@o.Email </p></td>
-                        <td><p>@o.PhoneNamber</p></td>
-                        <td><p>@o.AmountPrice</p></td>
-                        <td><p>
-                            <tr>
-                                <td><p>Название</p></td>
-                                <td><p>Латинское название</p></td>
-                                <td><p>Цена</p></td>
-                                <td><p>Описание</p></td>
-                            </tr>
-                            @foreach (var b in o.Items)
-                            {
-                                <tr>
-                                    <td><p>@b.Name</p></td>
-                                    <td><p>@b.LatinName</p></td>
-                                    <td><p>@b.Price</p></td>
-                                    <td><p>@b.Description</p></td>
-                                </tr>
-                            }
-                        </p></td>
-                    </tr>
-                
-            </table>
+            }
+            </p></td>
+            </tr>
+
+</table>
         }
     </div>
 </body>

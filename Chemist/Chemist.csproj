@@ -139,6 +139,10 @@
     <Compile Include="Migrations\201605290021474_AddItems.Designer.cs">
       <DependentUpon>201605290021474_AddItems.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201605311947392_Picture.cs" />
+    <Compile Include="Migrations\201605311947392_Picture.Designer.cs">
+      <DependentUpon>201605311947392_Picture.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AutenteficationAdmin.cs" />
     <Compile Include="Models\Basket.cs" />
@@ -151,6 +155,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Data\1.bmp" />
+    <Content Include="App_Data\2.bmp" />
+    <Content Include="App_Data\3.bmp" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="favicon.ico" />
@@ -158,6 +165,7 @@
     <Content Include="Content\Site.css" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="ClassDiagram1.cd" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -189,9 +197,7 @@
     <Content Include="Views\Home\AdminPage.cshtml" />
     <Content Include="Views\Home\Orders.cshtml" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="App_Data\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
@@ -215,6 +221,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201605290021474_AddItems.resx">
       <DependentUpon>201605290021474_AddItems.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201605311947392_Picture.resx">
+      <DependentUpon>201605311947392_Picture.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -1,9 +1,6 @@
 ﻿@{
     ViewBag.Title = "Contact";
 }
-<h2>@ViewBag.Title.</h2>
-<h3>@ViewBag.Message</h3>
-
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
@@ -15,25 +12,33 @@
     
     <div>
         <h3>Список лекарств в корзине</h3>
-        <table>
-            <tr>
-                <td><p>Id</p></td>
-                <td><p>Название</p></td>
-                <td><p>Латинское название</p></td>
-                <td><p>Цена</p></td>
-                <td><p>Описание</p></td>
-                <td><p>Count</p></td>
-            </tr>
-                
+        <table class="table table-striped table-hover ">
+            <thead>
+                <tr>
+                    <td><p>Id</p></td>
+                    <td><p>Изображение</p></td>
+                    <td><p>Название</p></td>
+                    <td><p>Латинское название</p></td>
+                    <td><p>Цена</p></td>
+                    <td><p>Описание</p></td>
+                    <td><p>Про рецепту</p></td>
+                    <td><p>Количество на складе</p></td>
+                    <td><p>Количество в заказе</p></td>
+                </tr>
+            </thead>
             @foreach (var b in ViewBag.Basket.Items)
             {
-                <tr>
+                <tr class="info">
                     <td><p>@b.Medicament.Id</p></td>
+                    <td><p><img src="@String.Format("data:image/bmp;base64,{0}", Convert.ToBase64String(b.Medicament.Picture))" width="100" height="100" /></p></td>
                     <td><p>@b.Medicament.Name</p></td>
                     <td><p>@b.Medicament.LatinName</p></td>
                     <td><p>@b.Medicament.Price</p></td>
                     <td><p>@b.Medicament.Description</p></td>
+                    <td><p>@b.Medicament.ByPrescription</p></td>
+                    <td><p>@b.Medicament.Count</p></td>
                     <td><p>@b.Count</p></td>
+                    <td><p><a href="/Home/Contact/@b.Id">Удалить</a></p></td>
                 </tr>
             }
         </table>
