@@ -76,22 +76,6 @@ namespace Chemist.Controllers
             return View();
         }
 
-        [HttpPost]
-        public string Buy(Item item)
-        {
-            var basket = _chemistContext.Baskets.First(x => x.SessionId == Request.Cookies.Get("BasketId").Value);
-            if (basket == null)
-            {
-                basket = new Basket();
-                basket.SessionId = Request.UserHostAddress;
-                basket.Items = new List<Item>();
-                _chemistContext.Baskets.Add(basket);
-            }
-            basket.Items.Add(item);
-            _chemistContext.SaveChanges();
-            return "Добавлено";
-        }
-
         public ActionResult About()
         {
             ViewBag.Message = "Your application description page.";
@@ -160,6 +144,15 @@ namespace Chemist.Controllers
             ViewBag.Basket = basket;
             ViewBag.AmountPrice = basket.Items.Sum(x=>(x.Medicament.Price*x.Count));
 
+            HttpCookie cookie = Request.Cookies.Get("UserId");
+            if (cookie == null)
+            {
+                return View();
+            }
+
+            User user = _chemistContext.Users.FirstOrDefault(x => x.CurentSession == cookie.Value);
+            ViewBag.User = user;
+
             return View();
         }
 
@@ -190,7 +183,19 @@ namespace Chemist.Controllers
         [HttpGet]
         public ActionResult AdminPage()
         {
-            return View();
+            HttpCookie cookie = Request.Cookies.Get("UserId");
+            if (cookie == null)
+            {
+                return View();
+            }
+
+            User user = _chemistContext.Users.FirstOrDefault(x => x.CurentSession == cookie.Value);
+            if (user == null)
+            {
+                return View();
+            }
+
+            return RedirectToAction("UserPage"); 
         }
 
         [HttpPost]
@@ -201,27 +206,45 @@ namespace Chemist.Controllers
             {
                 return View();
             }
-            HttpCookie cookie = Request.Cookies.Get("AdminId");
+            HttpCookie cookie = Request.Cookies.Get("UserId");
+            cookie = new HttpCookie("UserId", user.CurentSession);
+            Response.SetCookie(cookie);
+
+            return RedirectToAction("UserPage"); 
+        }
+
+        [HttpGet]
+        public ActionResult UserPage()
+        {
+            HttpCookie cookie = Request.Cookies.Get("UserId");
             if (cookie == null)
             {
-                cookie = new HttpCookie("AdminId", "true");
-                Response.SetCookie(cookie);
-                
-                return RedirectToAction("Orders");
+                return RedirectToAction("Index");
+            }
+            
+            User user = _chemistContext.Users.FirstOrDefault(x => x.CurentSession == cookie.Value);
+            if (user == null)
+            {
+                return RedirectToAction("Index");
             }
 
-            return RedirectToAction("Orders"); 
+
+            ViewBag.User = user;
+            return View();
         }
 
         [HttpGet]
         public ActionResult Orders()
         {
-            HttpCookie cookie = Request.Cookies.Get("AdminId");
+            HttpCookie cookie = Request.Cookies.Get("UserId");
             if (cookie == null)
             {
                 return RedirectToAction("Index");
             }
-            if (cookie.Value != "true")
+
+            User user = _chemistContext.Users.FirstOrDefault(x=>x.CurentSession == cookie.Value);
+
+            if (!user.IsAdmin)
             {
                 return RedirectToAction("Index");
             }
@@ -233,12 +256,14 @@ namespace Chemist.Controllers
         
         public ActionResult OrdersDel(int id)
         {
-            HttpCookie cookie = Request.Cookies.Get("AdminId");
+            HttpCookie cookie = Request.Cookies.Get("UserId");
             if (cookie == null)
             {
                 return RedirectToAction("Index");
             }
-            if (cookie.Value != "true")
+            User user = _chemistContext.Users.FirstOrDefault(x => x.CurentSession == cookie.Value);
+
+            if (!user.IsAdmin)
             {
                 return RedirectToAction("Index");
             }
@@ -255,12 +280,14 @@ namespace Chemist.Controllers
 
         public ActionResult OrdersComit(int id)
         {
-            HttpCookie cookie = Request.Cookies.Get("AdminId");
+            HttpCookie cookie = Request.Cookies.Get("UserId");
             if (cookie == null)
             {
                 return RedirectToAction("Index");
             }
-            if (cookie.Value != "true")
+            User user = _chemistContext.Users.FirstOrDefault(x => x.CurentSession == cookie.Value);
+
+            if (!user.IsAdmin)
             {
                 return RedirectToAction("Index");
             }
@@ -279,6 +306,60 @@ namespace Chemist.Controllers
             }
 
             return RedirectToAction("Orders");
+        }
+
+        public ActionResult Exit()
+        {
+            HttpCookie cookie = Response.Cookies.Get("UserId");
+            if (cookie == null)
+            {
+                return RedirectToAction("Index");
+            }
+            cookie.Value = "-1";
+            Response.Cookies.Set(cookie);
+            return RedirectToAction("Index");
+        }
+
+        [HttpGet]
+        public ActionResult UserRegistration()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult UserRegistration(User user)
+        {
+            user.CurentSession = Session.SessionID + user.GetHashCode();
+            user.IsAdmin = false;
+            _chemistContext.Users.Add(user);
+            _chemistContext.SaveChanges();
+
+            HttpCookie cookie = new HttpCookie("UserId", user.CurentSession);
+            Response.SetCookie(cookie);
+
+            return RedirectToAction("UserPage"); ;
+        }
+
+
+        [HttpGet]
+        public ActionResult CreateMedicament()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult CreateMedicament(Medicament medicament)
+        {
+            if (medicament != null)
+            {
+                //byte[] buffer=new byte[Request.Files.Get(medicament.Image).InputStream.Length];
+                //Request.Files.Get(medicament.Image).InputStream.Read(buffer,1,buffer.Length);
+                medicament.Picture = new byte[50];
+                _chemistContext.Medicaments.Add(medicament);
+                _chemistContext.SaveChanges();
+            }
+
+            return View();
         }
     }
 }

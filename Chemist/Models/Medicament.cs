@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Drawing;
 using System.IO;
+using System.ComponentModel.DataAnnotations;
 using System.Runtime.Serialization.Formatters.Binary;
 
 namespace Chemist.Models
@@ -19,6 +20,8 @@ namespace Chemist.Models
         public int Price { get; set; }
         public int Count { get; set; }
         public byte[] Picture { get; set; }
+        [System.ComponentModel.DataAnnotations.Schema.NotMapped]
+        public string Image { get; set; }
 
         public void SetPicture(Bitmap bitmap)
         {

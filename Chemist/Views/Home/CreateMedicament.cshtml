@@ -1,0 +1,58 @@
+﻿
+@{
+    ViewBag.Title = "CreateMedicament";
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Покупка</title>
+</head>
+<body>
+    <div>
+        <h3>Форма добавления медикаментов</h3>
+        <form method="post" action="">
+            <table>
+                <tr>
+                    <td><p>Название</p></td>
+                    <td><input type="text" name="Name" /> </td>
+                </tr>
+                <tr>
+                    <td><p>Латинское название</p></td>
+                    <td><input type="text" name="LatinName" /> </td>
+                </tr>
+                <tr>
+                    <td><p>Код</p></td>
+                    <td><input type="text" name="Code" /> </td>
+                </tr>
+                <tr>
+                    <td><p>По рецепту</p></td>
+                    <td><input type="checkbox" name="ByPrescription" /> </td>
+                </tr>
+                <tr>
+                    <td><p>Описание</p></td>
+                    <td><input type="text" name="Description" /> </td>
+                </tr>
+                <tr>
+                    <td><p>Цена</p></td>
+                    <td><input type="number" name="Price" /> </td>
+                </tr>
+                <tr>
+                    <td><p>Количество</p></td>
+                    <td>
+                        <input type="number" name="Count" />
+                    </td>
+                </tr>
+                <tr>
+                    <td><p>Картинка</p></td>
+                    <td>
+                        <input type="file" name="Image" />
+                    </td>
+                </tr>
+                <tr><td><input type="submit" value="Сохранить" /> </td><td></td></tr>
+            </table>
+        </form>
+    </div>
+</body>
+</html>

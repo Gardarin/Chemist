@@ -90,6 +90,11 @@ namespace Chemist.Models
             user.Mail = "abcd@mail.ru";
             user.Password = "123456";
             user.Name = "Igor";
+            user.Surname = "Sol";
+            user.PhoneNumber = "666";
+            user.Age=21;
+            user.Address="Mars";
+            user.CurentSession = "igorffadminpp";
             chemistContext.Users.Add(user);
 
             base.Seed(chemistContext);

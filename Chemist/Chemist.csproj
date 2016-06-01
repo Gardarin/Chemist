@@ -143,6 +143,14 @@
     <Compile Include="Migrations\201605311947392_Picture.Designer.cs">
       <DependentUpon>201605311947392_Picture.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201605312249228_UserCab.cs" />
+    <Compile Include="Migrations\201605312249228_UserCab.Designer.cs">
+      <DependentUpon>201605312249228_UserCab.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201606010139365_UserCab1.cs" />
+    <Compile Include="Migrations\201606010139365_UserCab1.Designer.cs">
+      <DependentUpon>201606010139365_UserCab1.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AutenteficationAdmin.cs" />
     <Compile Include="Models\Basket.cs" />
@@ -196,6 +204,9 @@
     <Content Include="Views\Home\CreateOrder.cshtml" />
     <Content Include="Views\Home\AdminPage.cshtml" />
     <Content Include="Views\Home\Orders.cshtml" />
+    <Content Include="Views\Home\UserPage.cshtml" />
+    <Content Include="Views\Home\UserRegistration.cshtml" />
+    <Content Include="Views\Home\CreateMedicament.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
@@ -224,6 +235,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201605311947392_Picture.resx">
       <DependentUpon>201605311947392_Picture.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201605312249228_UserCab.resx">
+      <DependentUpon>201605312249228_UserCab.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201606010139365_UserCab1.resx">
+      <DependentUpon>201606010139365_UserCab1.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

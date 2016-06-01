@@ -1,0 +1,52 @@
+﻿
+@{
+    ViewBag.Title = "UserPage";
+}
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Кабинет</title>
+</head>
+<body>
+    <div>
+        <h3>Данные пользователя</h3>
+        <table class="table table-striped table-hover ">
+                <tr>
+                    <td><p>Имя</p></td>
+                    <td><p>@ViewBag.User.Name</p></td>
+                </tr>
+            <tr>
+                <td><p>Фамилия</p></td>
+                <td><p>@ViewBag.User.Surname</p></td>
+            </tr>
+            <tr>
+                <td><p>Возраст</p></td>
+                <td><p>@ViewBag.User.Age</p></td>
+            </tr>
+            <tr>
+                <td><p>Электронная почта</p></td>
+                <td><p>@ViewBag.User.Mail</p></td>
+            </tr>
+            <tr>
+                <td><p>Номер телефона</p></td>
+                <td><p>@ViewBag.User.PhoneNumber</p></td>
+            </tr>
+            <tr>
+                <td><p>Адрес</p></td>
+                <td><p>@ViewBag.User.Address</p></td>
+            </tr>
+            <tr>
+                <td><p>Статус админа</p></td>
+                <td><p>@ViewBag.User.IsAdmin</p></td>
+            </tr>
+        </table>
+        @if(ViewBag.User.IsAdmin)
+        { 
+            <p><a href="/Home/Orders">Заказы</a></p>
+            <p><a href="/Home/CreateMedicament">Добавить медикамент</a></p>
+        }
+        <p><a href="/Home/Exit">Выход</a></p>
+    </div>
+</body>
+</html>
